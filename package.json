@@ -1,0 +1,23 @@
+{
+  "name": "impact-map-endpoint",
+  "version": "1.0.0",
+  "description": "Determines topojson endpoints for a node within a rollup tree",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SpiderStrategies/impact-map-endpoint.git"
+  },
+  "author": "Nathan Bowser <nathan@spiderstrategies.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SpiderStrategies/impact-map-endpoint/issues"
+  },
+  "homepage": "https://github.com/SpiderStrategies/impact-map-endpoint#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "tape": "^5.0.1"
+  }
+}
