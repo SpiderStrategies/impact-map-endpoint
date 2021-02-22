@@ -1,6 +1,6 @@
 {
   "name": "impact-map-endpoint",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Determines topojson endpoints for a node within a rollup tree",
   "main": "index.js",
   "scripts": {
