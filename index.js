@@ -2,6 +2,16 @@ const path = require('path')
 
 const extension = 'topojson'
 
+const flatten = node => {
+  return node.reduce((p, c) => {
+    p = p.concat(c)
+    if (c.children) {
+      p = p.concat(flatten(c.children))
+    }
+    return p
+  }, [])
+}
+
 /*
  * Walks the descendants of the node returning an array containing
  * the node type of each level
@@ -11,20 +21,18 @@ const childTypes = node => {
     return [] // No children
   }
 
-  let stack = [node]
-    , types = []
-
-  while (stack.length) {
-    let node = stack.pop()
-      , children = node.children
-
-    if (children && children.length) {
-      let child = children[0]
-      types.push(child.type)
-      stack.push(child)
+  // Flatten all the children
+  let deepest = flatten(node.children).reduce((p, c) => {
+    if (!p.length || c.depth > p[p.length - 1].depth) {
+      p.push({
+        depth: c.depth,
+        type: c.type
+      })
     }
-  }
-  return types
+    return p
+  }, [])
+
+  return deepest.map(node => node.type)
 }
 
 /*

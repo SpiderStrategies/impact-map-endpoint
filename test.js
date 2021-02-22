@@ -13,18 +13,49 @@ test('no children', t => {
   t.end()
 })
 
+test('nested children with some missing grandchildren', t => {
+  t.plan(1)
+
+  let node = {
+    key: '12345678910',
+    type: 'root',
+    depth: 1,
+    children: [{
+      key: '3983020289',
+      type: 'child',
+      depth: 2,
+      children: []
+    }, {
+      key: '3203',
+      type: 'child',
+      depth: 2,
+      children: [{
+        depth: 3,
+        key: '320023989',
+        type: 'grandchild'
+      }]
+    }]
+  }
+  t.equal(endpoint(node), '123/456/789/12345678910-child-grandchild.topojson')
+
+  t.end()
+})
+
 test('nested children', t => {
   t.plan(2)
 
   let node = {
     key: '12345678910',
     type: 'root',
+    depth: 0,
     children: [{
       key: '3983020289',
       type: 'child',
+      depth: 1,
       children: [{
         key: '320023989',
-        type: 'grandchild'
+        type: 'grandchild',
+        depth: 2
       }]
     }]
   }
