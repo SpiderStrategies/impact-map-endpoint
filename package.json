@@ -18,6 +18,6 @@
   "homepage": "https://github.com/SpiderStrategies/impact-map-endpoint#readme",
   "dependencies": {},
   "devDependencies": {
-    "tape": "^5.0.1"
+    "tape": "^5.5.2"
   }
 }
