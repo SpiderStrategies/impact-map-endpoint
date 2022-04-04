@@ -9,7 +9,11 @@ test('null node', t => {
 
 test('no children', t => {
   t.plan(1)
-  t.notOk(endpoint({}), 'no children provides no endpoint')
+  t.equal(endpoint({
+    key:  '123456',
+    type: 'leaf',
+    depth: 10
+  }), '123/456/123456.topojson') // No children nested
   t.end()
 })
 

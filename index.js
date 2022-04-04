@@ -45,9 +45,11 @@ const childTypes = node => {
  * For each level in the tree, we define a new directory with that node's `id`.
  * Inside of that directory will be a `${node.key}-<children-types>.json` file
  * containing the shape data for all children within the node.
+ *
+ * If the node doesn't contain children we use the structure `${node.key}.json`
  */
 module.exports = node => {
-  if (!node || !node.children) {
+  if (!node) {
     return null
   }
 
@@ -55,6 +57,11 @@ module.exports = node => {
     , subtypes = childTypes(node).join('-')
     , subpath = path.join(...id.substring(0, Math.min(id.length, 9)).match(/.{1,3}/g)) // Chunk the id
 
-  return path.join(subpath, `${node.key}-${subtypes}.${extension}`)
+  if (subtypes) {
+    return path.join(subpath, `${node.key}-${subtypes}.${extension}`)
+  } else {
+    return path.join(subpath, `${node.key}.${extension}`)
+  }
+
 }
 
