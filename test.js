@@ -40,7 +40,7 @@ test('nested children with some missing grandchildren', t => {
       }]
     }]
   }
-  t.equal(endpoint(node), '123/456/789/12345678910-child-grandchild.topojson')
+  t.equal(endpoint(node), '123/456/789/12345678910-child.topojson')
 
   t.end()
 })
@@ -64,7 +64,7 @@ test('nested children', t => {
     }]
   }
 
-  t.equal(endpoint(node), '123/456/789/12345678910-child-grandchild.topojson')
+  t.equal(endpoint(node), '123/456/789/12345678910-child.topojson')
   t.equal(endpoint(node.children[0]), '398/302/028/3983020289-grandchild.topojson')
 
   t.end()
