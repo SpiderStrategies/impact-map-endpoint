@@ -1,19 +1,25 @@
 const test = require('tape')
     , endpoint = require('./')
 
-test('null node', t => {
+test('null node throws', t => {
   t.plan(1)
-  t.notOk(endpoint(null), 'null is null')
+  t.throws(endpoint.bind(null, 'subdivions'), 'null node throws')
+  t.end()
+})
+
+test('null tree type throws', t => {
+  t.plan(1)
+  t.throws(endpoint.bind(null, null, {}), 'null treetype throws')
   t.end()
 })
 
 test('no children', t => {
   t.plan(1)
-  t.equal(endpoint({
+  t.equal(endpoint('subdivisions', {
     key:  '123456',
     type: 'leaf',
     depth: 10
-  }), '123/456/123456.topojson') // No children nested
+  }), 'subdivisions/123/456/123456.topojson') // No children nested
   t.end()
 })
 
@@ -40,7 +46,7 @@ test('nested children with some missing grandchildren', t => {
       }]
     }]
   }
-  t.equal(endpoint(node), '123/456/789/12345678910-child.topojson')
+  t.equal(endpoint('postal-codes', node), 'postal-codes/123/456/789/12345678910-child.topojson')
 
   t.end()
 })
@@ -64,8 +70,8 @@ test('nested children', t => {
     }]
   }
 
-  t.equal(endpoint(node), '123/456/789/12345678910-child.topojson')
-  t.equal(endpoint(node.children[0]), '398/302/028/3983020289-grandchild.topojson')
+  t.equal(endpoint('subdivisions', node), 'subdivisions/123/456/789/12345678910-child.topojson')
+  t.equal(endpoint('subdivisions', node.children[0]), 'subdivisions/398/302/028/3983020289-grandchild.topojson')
 
   t.end()
 })
@@ -82,6 +88,6 @@ test('short node id path', t => {
     }]
   }
 
-  t.equal(endpoint(node), '123/123-child.topojson')
+  t.equal(endpoint('abc', node), 'abc/123/123-child.topojson')
   t.end()
 })
