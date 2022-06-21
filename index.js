@@ -26,9 +26,13 @@ const childType = node => {
  *
  * If the node doesn't contain children we use the structure `${node.key}.json`
  */
-module.exports = node => {
+module.exports = (treeType, node) => {
+  if (!treeType) {
+    throw new Error('Tree type required')
+  }
+
   if (!node) {
-    return null
+    throw new Error('Node required')
   }
 
   let id = node.key.toString()
@@ -36,10 +40,8 @@ module.exports = node => {
     , subpath = path.join(...id.substring(0, Math.min(id.length, 9)).match(/.{1,3}/g)) // Chunk the id
 
   if (type) {
-    return path.join(subpath, `${node.key}-${type}.${extension}`)
+    return path.join(treeType, subpath, `${node.key}-${type}.${extension}`)
   } else {
-    return path.join(subpath, `${node.key}.${extension}`)
+    return path.join(treeType, subpath, `${node.key}.${extension}`)
   }
-
 }
-
